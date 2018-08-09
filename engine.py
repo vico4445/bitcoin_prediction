@@ -13,6 +13,7 @@ import numpy as np
 import datetime
 from pytz import timezone
 from sklearn.preprocessing import MinMaxScaler
+import mysql.connector
 #import MySQLdb
 
 est = timezone('US/Eastern')
@@ -109,14 +110,15 @@ def process_data(in_data):
 def predict(model, scaler):
 	#Enter the values for you database connection
 	dsn_database = "bitcoin"         # e.g. "MySQLdbtest"
-	dsn_hostname = "173.194.231.244"      # e.g.: "mydbinstance.xyz.us-east-1.rds.amazonaws.com"
+	dsn_hostname = "127.0.0.1"      # e.g.: "mydbinstance.xyz.us-east-1.rds.amazonaws.com"
 	dsn_port = 3306                  # e.g. 3306 
-	dsn_uid = "demo"             # e.g. "user1"
-	dsn_pwd = "qwerty@123"              # e.g. "Password123"
+	dsn_uid = "vico"             # e.g. "user1"
+	dsn_pwd = "Sn2Sdum45!"              # e.g. "Password123"
 
+	conn = mysql.connector.connect(host=dsn_hostname, port=dsn_port, user=dsn_uid, passwd=dsn_pwd, db=dsn_database)
 	#conn = MySQLdb.connect(host=dsn_hostname, port=dsn_port, user=dsn_uid, passwd=dsn_pwd, db=dsn_database)
 
-	#cursor=conn.cursor()
+	cursor=conn.cursor()
 
 
 	import queue 
@@ -163,9 +165,10 @@ def predict(model, scaler):
 	        decision = ''
 	    print(decision)
 	    prev = yhat_inverse[0][0]
-	    #input_string = "INSERT INTO live_data values ({},{},{},'{}','{}');".format(yhat_inverse[0][0],bit_data[0][0],sent_data[4][0],datetime.datetime.now(tz=est).strftime('%Y-%m-%d %H:%M:%S'),decision)
-	    #cursor.execute(input_string)
-	    #conn.commit()
+	    input_string = "INSERT INTO live_data values ({},{},{},'{}','{}');".format(yhat_inverse[0][0],bit_data[0][0],sent_data[4][0],datetime.datetime.now(tz=est).strftime('%Y-%m-%d %H:%M:%S'),decision)
+	    print(input_string)
+	    cursor.execute(input_string)
+	    conn.commit()
 	    time.sleep(60)
     
 
