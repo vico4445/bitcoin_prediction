@@ -16,7 +16,7 @@ from sklearn.preprocessing import MinMaxScaler
 import mysql.connector
 #import MySQLdb
 
-est = timezone('US/Eastern')
+france = timezone('Europe/France')
 
 
 #from twilio.rest import Client
@@ -145,8 +145,6 @@ def predict(model, scaler):
 	    sent_data = sent.readlines()
 	    bit_data = process_data(bit_data[len(bit_data)-5:])
 	    sent_data = process_data(sent_data[len(sent_data)-5:])
-	    print("bit_data {}".format(bit_data))
-	    print("sent_data {}".format(sent_data))
 	    live = scaler.transform(bit_data)
 	    testX, testY = create_dataset(live, 2, sent_data, sent=True)
 	    testX = np.reshape(testX, (testX.shape[0], 1, testX.shape[1]))
@@ -165,7 +163,7 @@ def predict(model, scaler):
 	        decision = ''
 	    print(decision)
 	    prev = yhat_inverse[0][0]
-	    input_string = "INSERT INTO live_data values ({},{},{},'{}','{}');".format(yhat_inverse[0][0],bit_data[0][0],sent_data[4][0],datetime.datetime.now(tz=est).strftime('%Y-%m-%d %H:%M:%S'),decision)
+	    input_string = "INSERT INTO live_data values ({},{},{},'{}','{}');".format(yhat_inverse[0][0],bit_data[0][0],sent_data[4][0],datetime.datetime.now(tz=france).strftime('%Y-%m-%d %H:%M:%S'),decision)
 	    print(input_string)
 	    cursor.execute(input_string)
 	    conn.commit()
