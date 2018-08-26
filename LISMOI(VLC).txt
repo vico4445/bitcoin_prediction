@@ -3,3 +3,11 @@ https://www.youtube.com/watch?v=EqWm8A-dRYg
 
 Obtenir prix bitcoin :
 https://www.coindesk.com/api/
+
+Installation et démarrage serveur SQL : https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/
+
+CREATE DATABASE :
+mysql --user=root --password=victor
+CREATE DATABASE bitcoin;
+USE bitcoin;
+CREATE TABLE live_data (y_hat decimal(8,4), bit_data decimal(8,4), sent_data decimal(5,4), date datetime NOT NULL, decision varchar(45), PRIMARY KEY (date));

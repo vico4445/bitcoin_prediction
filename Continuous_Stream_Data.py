@@ -35,6 +35,6 @@ while True:
     f.write(","+datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
     f.write("\n")
     f.flush()
-    print(datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
+    #print(datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
     time.sleep(60)
 

@@ -23,7 +23,7 @@ def main():
     path = 'live_tweet.csv'
     f = open(path,"a")
     f1 = open('tweet_data','a', encoding='utf-8')
-    # access twitter api via tweepy methods
+    # access twitter api via textblob methods
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     twitter_api = tweepy.API(auth)
@@ -50,7 +50,7 @@ def get_polarity(tweets,f):
     tweet_polarity = []
 
     for tweet in tweets:
-        print(tweet.text)
+        #print(tweet.text)
         f.write(tweet.text+'\n')
         analysis = TextBlob(tweet.text)
         tweet_polarity.append(analysis.sentiment.polarity)
